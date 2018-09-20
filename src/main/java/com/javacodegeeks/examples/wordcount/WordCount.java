@@ -5,6 +5,7 @@ import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IOUtils;
+import org.apache.hadoop.util.Progressable;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 import org.json.simple.JSONArray;
@@ -12,8 +13,15 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import java.io.*;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 public class WordCount extends Configured implements Tool{
+    private String pathToHdfs="/user/santiagoarce/";//root path
+    Configuration configuration = null;
+    List<OutputStream> años = new ArrayList<OutputStream>();
+    BufferedWriter br;
 	
 	/**
 	 * Main function which calls the run method and passes the args using ToolRunner
@@ -31,16 +39,11 @@ public class WordCount extends Configured implements Tool{
 	 */
 	public int run(String[] args) throws Exception {
         JSONParser parser = new JSONParser();
-        String namePasado = null;
-        OutputStream os = null;
         FileWriter file = null;
-        String pathToHdfs="/user/santiagoarce/";//root path
+        //List<OutputStream> años = new ArrayList<OutputStream>();
+
         String localDirectoryAuxFile="/Users/santiagoarce/Desktop/wordcount/file.json";
-        Configuration configuration = null;
-	/*	Configuration configuration = new Configuration();
-		configuration.set("fs.defaultFS", "hdfs://localhost:9000");
-		FileSystem filesystem = FileSystem.get(configuration);
-		FileUtil.copy(filesystem, new Path("prueba.txt"), filesystem, new Path("."), false, configuration);*/
+
 		if (args.length != 1) {
 			System.err.printf("%s - Se necesita la dirección local del archivo a ser copiado.\n",
 					getClass().getSimpleName());
@@ -48,88 +51,58 @@ public class WordCount extends Configured implements Tool{
 		}
 
 		String localInputPath = args[0];
-		Path outputPath = new Path(args[0]);// ARGUMENT FOR OUTPUT_LOCATION
 		String[] parts = localInputPath.split("/");
-		String part = parts[parts.length-1]; // 004
+
+        configuration = new Configuration();
+        configuration.set("fs.defaultFS", "hdfs://localhost:9000");
+        FileSystem fs = FileSystem.get(configuration);
 
         ////
         JSONArray a = (JSONArray) parser.parse(new FileReader(localInputPath));
-        int index = 0;
 
+        int index = 0;
         for (Object o : a)
         {
-
             JSONObject data = (JSONObject) o;
 
-            JSONObject airport = (JSONObject) data.get("airport");
+            JSONObject time = (JSONObject) data.get("time");
 
-            JSONObject carrier = (JSONObject) data.get("carrier");
+            Long year = (Long) time.get("year");
 
-            String code = (String) airport.get("code");
 
-            String name = (String) airport.get("name");
+            Path fileHdfs =new Path(pathToHdfs + year);
 
-            String codeCarrier = (String) carrier.get("code");
 
-            String nameCarrier = (String) carrier.get("name");
+            if(!fs.exists( fileHdfs)) {
+              /*  if (os!= null){
+                    os.close();
+                }*/
+                boolean isCreated = fs.mkdirs(fileHdfs);
 
-            JSONObject obj = new JSONObject();
-            obj.put("id", index);
-            System.out.println(index);
-            obj.put("carrier", nameCarrier);
-            System.out.println(nameCarrier);
-            obj.put("airport", name);
-            System.out.println(name);
-            index++;
+                if (isCreated) {
+                    System.out.println("Directory created");
+                } else {
+                    System.out.println("Directory creation failed");
+                }
+                //años.add(os);
 
-            if (namePasado==null){
-                file = new FileWriter(localDirectoryAuxFile);
-                file.write(obj.toJSONString());
-                configuration = new Configuration();
-                configuration.set("fs.defaultFS", "hdfs://localhost:9000");
-                FileSystem fs = FileSystem.get(configuration);
-                os = fs.create(new Path(pathToHdfs + codeCarrier));
-                namePasado = codeCarrier;
-
-            }else if (!namePasado.equals(codeCarrier) || index == a.size()){
-                file.close();
-                InputStream is = new BufferedInputStream(new FileInputStream(localDirectoryAuxFile));
-                IOUtils.copyBytes(is, os, configuration); // Copying the dataset from input stream to output stream
-                System.out.println("Se copio el contenido de " + namePasado + " al hdfs.");
-                System.out.println("\nJSON Object: " + obj);
-                configuration = new Configuration();
-                configuration.set("fs.defaultFS", "hdfs://localhost:9000");
-                FileSystem fs = FileSystem.get(configuration);
-
-                //if (!fs.exists(new Path("/user/santiagoarce/" + codeCarrier))){
-                    os = fs.create(new Path(pathToHdfs + codeCarrier));
-                //}
-                file = new FileWriter(localDirectoryAuxFile);
-                file.write("");
-                file.write(obj.toJSONString());
-                namePasado = codeCarrier;
             }else{
+                //fs.open(fileHdfs);
+                escribirEnCarpeta(data,index++,year,fs);
+                //BufferedWriter br = new BufferedWriter( new OutputStreamWriter( os, "UTF-8" ) );
+                //br.write(obj.toJSONString());
+                //br.close();
 
-                file.write(obj.toJSONString());
             }
-            //os.write(obj.toJSONString().getBytes());
+
+
         }
-        /////
 
-/*		Configuration configuration = new Configuration();
-		configuration.set("fs.defaultFS", "hdfs://localhost:9000");
-		FileSystem fs = FileSystem.get(configuration);
-		OutputStream os = fs.create(new Path("/user/santiagoarce/" + part));*/
-		//"/Users/santiagoarce/Desktop/wordcount/prueba.txt"
-
-
-
-		//InputStream is = new BufferedInputStream(new FileInputStream(localInputPath));//Data set is getting copied into input stream through buffer mechanism.
-		//IOUtils.copyBytes(is, os, configuration); // Copying the dataset from input stream to output stream
-		//System.out.printf("Archivo %s copiado correctamente al hdfs \n",part);
-        if (file != null) {
-            file.close();
+        for (OutputStream año:años) {
+            año.close();
+            System.out.println("Cerrando Carpetas ");
         }
+
         return 0;
 
 /*		if (args.length != 2) {
@@ -166,4 +139,139 @@ public class WordCount extends Configured implements Tool{
 		
 		return returnValue;*/
 	}
+	public void escribirEnCarpeta(JSONObject data, int index,Long year,FileSystem fs) throws IOException {
+
+        OutputStream os;
+
+        JSONObject airport = (JSONObject) data.get("airport");
+
+        JSONObject carrier = (JSONObject) data.get("carrier");
+
+        JSONObject statistics = (JSONObject) data.get("statistics");
+
+        JSONObject flights = (JSONObject) statistics.get("flights");
+
+        Long cancelled = (Long) flights.get("cancelled");
+
+        String code = (String) airport.get("code");
+
+        String name = (String) airport.get("name");
+
+        String codeCarrier = (String) carrier.get("code");
+
+        String nameCarrier = (String) carrier.get("name");
+
+
+
+        JSONObject obj = new JSONObject();
+
+        obj.put("carrierCode", codeCarrier);
+        System.out.println(codeCarrier);
+        obj.put("carrierName", nameCarrier);
+        System.out.println(code);
+        obj.put("ts", new Timestamp(System.currentTimeMillis()));
+
+        Path fileCodeCarrier =new Path(pathToHdfs + year + "/" + codeCarrier);
+        if (!fs.exists(fileCodeCarrier)){
+            os = fs.create(fileCodeCarrier);
+        }else{
+            os =fs.append(fileCodeCarrier);
+        }
+
+        br = new BufferedWriter( new OutputStreamWriter( os, "UTF-8" ) );
+        br.write(obj.toJSONString());
+        br.close();
+
+
+
+
+        //aeropuerto
+        obj = new JSONObject();
+        obj.put("aeroCode", code);
+        System.out.println(code);
+        obj.put("aeroName", name);
+        System.out.println(name);
+        obj.put("ts", new Timestamp(System.currentTimeMillis()));
+
+        fileCodeCarrier =new Path(pathToHdfs + year + "/" + code);
+        if (!fs.exists(fileCodeCarrier)){
+            os = fs.create(fileCodeCarrier);
+        }else{
+            os =fs.append(fileCodeCarrier);
+        }
+
+        br = new BufferedWriter( new OutputStreamWriter( os, "UTF-8" ) );
+        br.write(obj.toJSONString());
+        br.close();
+
+
+
+
+
+        //aeropuerto_carrier
+        obj = new JSONObject();
+        obj.put("aeroCode", code);
+        System.out.println(code);
+        obj.put("carrierCode", codeCarrier);
+        System.out.println(codeCarrier);
+        obj.put("ts", new Timestamp(System.currentTimeMillis()));
+
+        fileCodeCarrier =new Path(pathToHdfs + year + "/" + code + "_" +codeCarrier);
+        if (!fs.exists(fileCodeCarrier)){
+            os = fs.create(fileCodeCarrier);
+        }else{
+            os =fs.append(fileCodeCarrier);
+        }
+
+        br = new BufferedWriter( new OutputStreamWriter( os, "UTF-8" ) );
+        br.write(obj.toJSONString());
+        br.close();
+
+
+
+
+        //estadisticas
+        obj = new JSONObject();
+        obj.put("aeroCode", code);
+        System.out.println(code);
+        obj.put("carrierCode", codeCarrier);
+        System.out.println(codeCarrier);
+        obj.put("estadisticaCode", index);
+        System.out.println(index);
+        obj.put("ts", new Timestamp(System.currentTimeMillis()));
+
+        fileCodeCarrier =new Path(pathToHdfs + year + "/estadistica_" + index);
+        if (!fs.exists(fileCodeCarrier)){
+            os = fs.create(fileCodeCarrier);
+        }else{
+            os =fs.append(fileCodeCarrier);
+        }
+
+        br = new BufferedWriter( new OutputStreamWriter( os, "UTF-8" ) );
+        br.write(obj.toJSONString());
+        br.close();
+
+
+
+        //estadisticas_cancelado
+
+        obj = new JSONObject();
+        obj.put("estadisticaCode", index);
+        System.out.println(index);
+        obj.put("cancelado", cancelled);
+        System.out.println(nameCarrier);
+        obj.put("ts", new Timestamp(System.currentTimeMillis()));
+
+        fileCodeCarrier =new Path(pathToHdfs + year + "/" + index + "_cancelado");
+        if (!fs.exists(fileCodeCarrier)){
+            os = fs.create(fileCodeCarrier);
+        }else{
+            os =fs.append(fileCodeCarrier);
+        }
+
+        br = new BufferedWriter( new OutputStreamWriter( os, "UTF-8" ) );
+        br.write(obj.toJSONString());
+        br.close();
+
+    }
 }

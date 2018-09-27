@@ -169,7 +169,7 @@ public class WordCount extends Configured implements Tool{
         System.out.println(codeCarrier);
         obj.put("carrierName", nameCarrier);
         System.out.println(code);
-        obj.put("ts", new Timestamp(System.currentTimeMillis()));
+        obj.put("ts", new Timestamp(System.currentTimeMillis()).toString());
 
         Path fileCodeCarrier =new Path(pathToHdfs + year + "/" + codeCarrier);
         if (!fs.exists(fileCodeCarrier)){
@@ -191,7 +191,7 @@ public class WordCount extends Configured implements Tool{
         System.out.println(code);
         obj.put("aeroName", name);
         System.out.println(name);
-        obj.put("ts", new Timestamp(System.currentTimeMillis()));
+        obj.put("ts", new Timestamp(System.currentTimeMillis()).toString());
 
         fileCodeCarrier =new Path(pathToHdfs + year + "/" + code);
         if (!fs.exists(fileCodeCarrier)){
@@ -214,7 +214,7 @@ public class WordCount extends Configured implements Tool{
         System.out.println(code);
         obj.put("carrierCode", codeCarrier);
         System.out.println(codeCarrier);
-        obj.put("ts", new Timestamp(System.currentTimeMillis()));
+        obj.put("ts", new Timestamp(System.currentTimeMillis()).toString());
 
         fileCodeCarrier =new Path(pathToHdfs + year + "/" + code + "_" +codeCarrier);
         if (!fs.exists(fileCodeCarrier)){
@@ -238,7 +238,7 @@ public class WordCount extends Configured implements Tool{
         System.out.println(codeCarrier);
         obj.put("estadisticaCode", index);
         System.out.println(index);
-        obj.put("ts", new Timestamp(System.currentTimeMillis()));
+        obj.put("ts", new Timestamp(System.currentTimeMillis()).toString());
 
         fileCodeCarrier =new Path(pathToHdfs + year + "/estadistica_" + index);
         if (!fs.exists(fileCodeCarrier)){
@@ -260,7 +260,7 @@ public class WordCount extends Configured implements Tool{
         System.out.println(index);
         obj.put("cancelado", cancelled);
         System.out.println(nameCarrier);
-        obj.put("ts", new Timestamp(System.currentTimeMillis()));
+        obj.put("ts", new Timestamp(System.currentTimeMillis()).toString());
 
         fileCodeCarrier =new Path(pathToHdfs + year + "/" + index + "_cancelado");
         if (!fs.exists(fileCodeCarrier)){

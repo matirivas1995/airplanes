@@ -1,4 +1,4 @@
-package com.javacodegeeks.examples.wordcount;
+package com.vibe;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

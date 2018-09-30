@@ -1,4 +1,4 @@
-package com.javacodegeeks.examples.wordcount.model;
+package com.vibe.model;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 

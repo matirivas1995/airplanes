@@ -1,4 +1,4 @@
-package com.javacodegeeks.examples.wordcount.model;
+package com.vibe.model;
 
 /**
  * Created by santiagoarce on 9/17/18.

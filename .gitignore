@@ -10,3 +10,7 @@
 \.project
 
 \.prueba\.txt\.crc
+
+target/
+
+airplanes\.iml

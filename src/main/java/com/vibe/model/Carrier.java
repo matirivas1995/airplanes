@@ -1,13 +1,13 @@
-package com.javacodegeeks.examples.wordcount.model;
+package com.vibe.model;
 
 /**
  * Created by santiagoarce on 9/17/18.
  */
-public class Airport {
+public class Carrier {
     String code;
     String name;
 
-    public Airport(String code, String name) {
+    public Carrier(String code, String name) {
         this.code = code;
         this.name = name;
     }

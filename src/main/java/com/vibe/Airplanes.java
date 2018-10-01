@@ -15,7 +15,9 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WordCount extends Configured implements Tool{
+import com.vibe.model.*;
+
+public class Airplanes extends Configured implements Tool{
     private String pathToHdfs="/user/santiagoarce/";//root path
     Configuration configuration = null;
     List<OutputStream> años = new ArrayList<OutputStream>();
@@ -27,7 +29,7 @@ public class WordCount extends Configured implements Tool{
 	 * @throws Exception 
 	 */
 	public static void main(String[] args) throws Exception{
-		int exitCode = ToolRunner.run(new WordCount(), args);
+		int exitCode = ToolRunner.run(new Airplanes(), args);
 		System.exit(exitCode);
 	}
  
@@ -111,7 +113,7 @@ public class WordCount extends Configured implements Tool{
 	
 		//Initialize the Hadoop job and set the jar as well as the name of the Job
 		Job job = new Job();
-		job.setJarByClass(WordCount.class);
+		job.setJarByClass(Airplanes.class);
 		job.setJobName("WordCounter");
 		
 		//Add input and output file paths to job based on the arguments passed
@@ -160,14 +162,17 @@ public class WordCount extends Configured implements Tool{
         String nameCarrier = (String) carrier.get("name");
 
 
-
+        com.vibe.model.carrier ca = new carrier();
+        ca.setCarrierCode(codeCarrier);
+        ca.setCarrierName(nameCarrier);
+        ca.setTs(new Timestamp(System.currentTimeMillis()).toString());
         JSONObject obj = new JSONObject();
 
-        obj.put("carrierCode", codeCarrier);
+        /*obj.put("carrierCode", codeCarrier);
         System.out.println(codeCarrier);
         obj.put("carrierName", nameCarrier);
         System.out.println(code);
-        obj.put("ts", new Timestamp(System.currentTimeMillis()).toString());
+        obj.put("ts", new Timestamp(System.currentTimeMillis()).toString());*/
 
         Path fileCodeCarrier =new Path(pathToHdfs + year + "/" + codeCarrier);
         if (!fs.exists(fileCodeCarrier)){
@@ -177,19 +182,23 @@ public class WordCount extends Configured implements Tool{
         }
 
         br = new BufferedWriter( new OutputStreamWriter( os, "UTF-8" ) );
-        br.write(obj.toJSONString());
+        br.write(ca.toString());
         br.close();
 
 
 
 
         //aeropuerto
-        obj = new JSONObject();
+        aeropuerto aero = new aeropuerto();
+        aero.setAeroCode(code);
+        aero.setAeroName(name);
+        aero.setTs(new Timestamp(System.currentTimeMillis()).toString());
+        /*obj = new JSONObject();
         obj.put("aeroCode", code);
         System.out.println(code);
         obj.put("aeroName", name);
         System.out.println(name);
-        obj.put("ts", new Timestamp(System.currentTimeMillis()).toString());
+        obj.put("ts", new Timestamp(System.currentTimeMillis()).toString());*/
 
         fileCodeCarrier =new Path(pathToHdfs + year + "/" + code);
         if (!fs.exists(fileCodeCarrier)){
@@ -199,7 +208,7 @@ public class WordCount extends Configured implements Tool{
         }
 
         br = new BufferedWriter( new OutputStreamWriter( os, "UTF-8" ) );
-        br.write(obj.toJSONString());
+        br.write(aero.toString());
         br.close();
 
 
@@ -207,12 +216,17 @@ public class WordCount extends Configured implements Tool{
 
 
         //aeropuerto_carrier
-        obj = new JSONObject();
+        aeropuerto_carrier aeroca = new aeropuerto_carrier();
+        aeroca.setAeroCode(code);
+        aeroca.setCarrierCode(codeCarrier);
+        aero.setTs(new Timestamp(System.currentTimeMillis()).toString());
+        /*obj = new JSONObject();
         obj.put("aeroCode", code);
         System.out.println(code);
         obj.put("carrierCode", codeCarrier);
         System.out.println(codeCarrier);
         obj.put("ts", new Timestamp(System.currentTimeMillis()).toString());
+        */
 
         fileCodeCarrier =new Path(pathToHdfs + year + "/" + code + "_" +codeCarrier);
         if (!fs.exists(fileCodeCarrier)){
@@ -222,14 +236,20 @@ public class WordCount extends Configured implements Tool{
         }
 
         br = new BufferedWriter( new OutputStreamWriter( os, "UTF-8" ) );
-        br.write(obj.toJSONString());
+        br.write(aero.toString());
         br.close();
 
 
 
 
         //estadisticas
-        obj = new JSONObject();
+
+        estadisticas es = new estadisticas();
+        es.setAeroCode(code);
+        es.setCarrierCode(codeCarrier);
+        es.setEstadisticaCode(Integer.toString(index));
+        es.setTs( new Timestamp(System.currentTimeMillis()).toString() );
+        /*obj = new JSONObject();
         obj.put("aeroCode", code);
         System.out.println(code);
         obj.put("carrierCode", codeCarrier);
@@ -237,6 +257,7 @@ public class WordCount extends Configured implements Tool{
         obj.put("estadisticaCode", index);
         System.out.println(index);
         obj.put("ts", new Timestamp(System.currentTimeMillis()).toString());
+        */
 
         fileCodeCarrier =new Path(pathToHdfs + year + "/estadistica_" + index);
         if (!fs.exists(fileCodeCarrier)){
@@ -246,19 +267,24 @@ public class WordCount extends Configured implements Tool{
         }
 
         br = new BufferedWriter( new OutputStreamWriter( os, "UTF-8" ) );
-        br.write(obj.toJSONString());
+        br.write(es.toString());
         br.close();
 
 
 
         //estadisticas_cancelado
 
-        obj = new JSONObject();
+        estadisticas_cancelado escan = new estadisticas_cancelado();
+        escan.setCancelado(Long.toString(cancelled));
+        escan.setEstadisticaCode(Integer.toString(index));
+        escan.setTs(new Timestamp(System.currentTimeMillis()).toString());
+
+        /*obj = new JSONObject();
         obj.put("estadisticaCode", index);
         System.out.println(index);
         obj.put("cancelado", cancelled);
         System.out.println(nameCarrier);
-        obj.put("ts", new Timestamp(System.currentTimeMillis()).toString());
+        obj.put("ts", new Timestamp(System.currentTimeMillis()).toString());*/
 
         fileCodeCarrier =new Path(pathToHdfs + year + "/" + index + "_cancelado");
         if (!fs.exists(fileCodeCarrier)){
@@ -268,7 +294,7 @@ public class WordCount extends Configured implements Tool{
         }
 
         br = new BufferedWriter( new OutputStreamWriter( os, "UTF-8" ) );
-        br.write(obj.toJSONString());
+        br.write(escan.toString());
         br.close();
 
     }

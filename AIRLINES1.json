@@ -1,0 +1,470 @@
+[
+  {
+    "airport": {
+      "code": "ATL", 
+      "name": "Atlanta, GA: Hartsfield-Jackson Atlanta International"
+    }, 
+    "statistics": {
+      "flights": {
+        "cancelled": 5, 
+        "on time": 561, 
+        "total": 752, 
+        "delayed": 186, 
+        "diverted": 0
+      }, 
+      "# of delays": {
+        "late aircraft": 18, 
+        "weather": 28, 
+        "security": 2, 
+        "national aviation system": 105, 
+        "carrier": 34
+      }, 
+      "minutes delayed": {
+        "late aircraft": 1269, 
+        "weather": 1722, 
+        "carrier": 1367, 
+        "security": 139, 
+        "total": 8314, 
+        "national aviation system": 3817
+      }
+    }, 
+    "time": {
+      "label": "2003/6", 
+      "year": 2003, 
+      "month": 6
+    }, 
+    "carrier": {
+      "code": "AA", 
+      "name": "American Airlines Inc."
+    }
+  }, 
+  {
+    "airport": {
+      "code": "BOS", 
+      "name": "Boston, MA: Logan International"
+    }, 
+    "statistics": {
+      "flights": {
+        "cancelled": 7, 
+        "on time": 1034, 
+        "total": 1266, 
+        "delayed": 225, 
+        "diverted": 0
+      }, 
+      "# of delays": {
+        "late aircraft": 46, 
+        "weather": 24, 
+        "security": 2, 
+        "national aviation system": 84, 
+        "carrier": 69
+      }, 
+      "minutes delayed": {
+        "late aircraft": 3043, 
+        "weather": 1783, 
+        "carrier": 4201, 
+        "security": 45, 
+        "total": 12139, 
+        "national aviation system": 3067
+      }
+    }, 
+    "time": {
+      "label": "2003/6", 
+      "year": 2003, 
+      "month": 6
+    }, 
+    "carrier": {
+      "code": "AA", 
+      "name": "American Airlines Inc."
+    }
+  }, 
+  {
+    "airport": {
+      "code": "BWI", 
+      "name": "Baltimore, MD: Baltimore/Washington International Thurgood Marshall"
+    }, 
+    "statistics": {
+      "flights": {
+        "cancelled": 1, 
+        "on time": 490, 
+        "total": 593, 
+        "delayed": 101, 
+        "diverted": 1
+      }, 
+      "# of delays": {
+        "late aircraft": 25, 
+        "weather": 20, 
+        "security": 0, 
+        "national aviation system": 38, 
+        "carrier": 18
+      },
+      "minutes delayed": {
+        "late aircraft": 2704, 
+        "weather": 84, 
+        "carrier": 2686, 
+        "security": 0, 
+        "total": 5873, 
+        "national aviation system": 399
+      }
+    }, 
+    "time": {
+      "label": "2016/1", 
+      "year": 2016, 
+      "month": 1
+    }, 
+    "carrier": {
+      "code": "WN", 
+      "name": "Southwest Airlines Co."
+    }
+  }, 
+  {
+    "airport": {
+      "code": "TPA", 
+      "name": "Tampa, FL: Tampa International"
+    }, 
+    "statistics": {
+      "flights": {
+        "cancelled": 45, 
+        "on time": 1981, 
+        "total": 2361, 
+        "delayed": 333, 
+        "diverted": 2
+      }, 
+      "# of delays": {
+        "late aircraft": 132, 
+        "weather": 2, 
+        "security": 0, 
+        "national aviation system": 77, 
+        "carrier": 121
+      }, 
+      "minutes delayed": {
+        "late aircraft": 6667, 
+        "weather": 215, 
+        "carrier": 6562, 
+        "security": 0, 
+        "total": 15880, 
+        "national aviation system": 2436
+      }
+    }, 
+    "time": {
+      "label": "2016/1", 
+      "year": 2016, 
+      "month": 1
+    }, 
+    "carrier": {
+      "code": "WN", 
+      "name": "Southwest Airlines Co."
+    }
+  }, 
+  {
+    "airport": {
+      "code": "LGA", 
+      "name": "New York, NY: LaGuardia"
+    }, 
+    "statistics": {
+      "flights": {
+        "cancelled": 56, 
+        "on time": 702, 
+        "total": 926, 
+        "delayed": 166, 
+        "diverted": 2
+      }, 
+      "# of delays": {
+        "late aircraft": 38, 
+        "weather": 9, 
+        "security": 1, 
+        "national aviation system": 62, 
+        "carrier": 55
+      }, 
+      "minutes delayed": {
+        "late aircraft": 1852, 
+        "weather": 512, 
+        "carrier": 3009, 
+        "security": 15, 
+        "total": 7806, 
+        "national aviation system": 2418
+      }
+    }, 
+    "time": {
+      "label": "2016/1", 
+      "year": 2016, 
+      "month": 1
+    }, 
+    "carrier": {
+      "code": "WN", 
+      "name": "Southwest Airlines Co."
+    }
+  }, 
+  {
+    "airport": {
+      "code": "MCO", 
+      "name": "Orlando, FL: Orlando International"
+    }, 
+    "statistics": {
+      "flights": {
+        "cancelled": 75, 
+        "on time": 2898, 
+        "total": 3426, 
+        "delayed": 450, 
+        "diverted": 3
+      }, 
+      "# of delays": {
+        "late aircraft": 192, 
+        "weather": 6, 
+        "security": 0, 
+        "national aviation system": 107, 
+        "carrier": 145
+      }, 
+      "minutes delayed": {
+        "late aircraft": 11175, 
+        "weather": 441, 
+        "carrier": 9215, 
+        "security": 0, 
+        "total": 24021, 
+        "national aviation system": 3190
+      }
+    }, 
+    "time": {
+      "label": "2016/1", 
+      "year": 2016, 
+      "month": 1
+    }, 
+    "carrier": {
+      "code": "WN", 
+      "name": "Southwest Airlines Co."
+    }
+  }, 
+  {
+    "airport": {
+      "code": "MDW", 
+      "name": "Chicago, IL: Chicago Midway International"
+    }, 
+    "statistics": {
+      "flights": {
+        "cancelled": 154, 
+        "on time": 5386, 
+        "total": 6334, 
+        "delayed": 783, 
+        "diverted": 11
+      }, 
+      "# of delays": {
+        "late aircraft": 329, 
+        "weather": 45, 
+        "security": 3, 
+        "national aviation system": 194, 
+        "carrier": 213
+      }, 
+      "minutes delayed": {
+        "late aircraft": 15835, 
+        "weather": 3245, 
+        "carrier": 9547, 
+        "security": 62, 
+        "total": 34541, 
+        "national aviation system": 5852
+      }
+    }, 
+    "time": {
+      "label": "2016/1", 
+      "year": 2016, 
+      "month": 1
+    }, 
+    "carrier": {
+      "code": "WN", 
+      "name": "Southwest Airlines Co."
+    }
+  }, 
+  {
+    "airport": {
+      "code": "MSP", 
+      "name": "Minneapolis, MN: Minneapolis-St Paul International"
+    }, 
+    "statistics": {
+      "flights": {
+        "cancelled": 2, 
+        "on time": 559, 
+        "total": 658, 
+        "delayed": 97, 
+        "diverted": 0
+      }, 
+      "# of delays": {
+        "late aircraft": 38, 
+        "weather": 2, 
+        "security": 0, 
+        "national aviation system": 18, 
+        "carrier": 39
+      }, 
+      "minutes delayed": {
+        "late aircraft": 1838, 
+        "weather": 47, 
+        "carrier": 1363, 
+        "security": 0, 
+        "total": 3733, 
+        "national aviation system": 485
+      }
+    }, 
+    "time": {
+      "label": "2016/1", 
+      "year": 2016, 
+      "month": 1
+    }, 
+    "carrier": {
+      "code": "WN", 
+      "name": "Southwest Airlines Co."
+    }
+  }, 
+  {
+    "airport": {
+      "code": "PDX", 
+      "name": "Portland, OR: Portland International"
+    }, 
+    "statistics": {
+      "flights": {
+        "cancelled": 5, 
+        "on time": 856, 
+        "total": 990, 
+        "delayed": 129, 
+        "diverted": 0
+      }, 
+      "# of delays": {
+        "late aircraft": 79, 
+        "weather": 1, 
+        "security": 0, 
+        "national aviation system": 12, 
+        "carrier": 38
+      }, 
+      "minutes delayed": {
+        "late aircraft": 4166, 
+        "weather": 15, 
+        "carrier": 1705, 
+        "security": 0, 
+        "total": 6173, 
+        "national aviation system": 287
+      }
+    }, 
+    "time": {
+      "label": "2016/1", 
+      "year": 2016, 
+      "month": 1
+    }, 
+    "carrier": {
+      "code": "WN", 
+      "name": "Southwest Airlines Co."
+    }
+  }, 
+  {
+    "airport": {
+      "code": "PHL", 
+      "name": "Philadelphia, PA: Philadelphia International"
+    }, 
+    "statistics": {
+      "flights": {
+        "cancelled": 57, 
+        "on time": 606, 
+        "total": 766, 
+        "delayed": 102, 
+        "diverted": 1
+      }, 
+      "# of delays": {
+        "late aircraft": 49, 
+        "weather": 1, 
+        "security": 0, 
+        "national aviation system": 18, 
+        "carrier": 34
+      }, 
+      "minutes delayed": {
+        "late aircraft": 2515, 
+        "weather": 22, 
+        "carrier": 1619, 
+        "security": 0, 
+        "total": 4623, 
+        "national aviation system": 467
+      }
+    }, 
+    "time": {
+      "label": "2016/1", 
+      "year": 2016, 
+      "month": 1
+    }, 
+    "carrier": {
+      "code": "WN", 
+      "name": "Southwest Airlines Co."
+    }
+  }, 
+  {
+    "airport": {
+      "code": "PHX", 
+      "name": "Phoenix, AZ: Phoenix Sky Harbor International"
+    }, 
+    "statistics": {
+      "flights": {
+        "cancelled": 59, 
+        "on time": 4141, 
+        "total": 4857, 
+        "delayed": 656, 
+        "diverted": 1
+      }, 
+      "# of delays": {
+        "late aircraft": 331, 
+        "weather": 10, 
+        "security": 2, 
+        "national aviation system": 119, 
+        "carrier": 194
+      }, 
+      "minutes delayed": {
+        "late aircraft": 16827, 
+        "weather": 676, 
+        "carrier": 9297, 
+        "security": 50, 
+        "total": 30687, 
+        "national aviation system": 3837
+      }
+    }, 
+    "time": {
+      "label": "2016/1", 
+      "year": 2016, 
+      "month": 1
+    }, 
+    "carrier": {
+      "code": "WN", 
+      "name": "Southwest Airlines Co."
+    }
+  }, 
+  {
+    "airport": {
+      "code": "BOS", 
+      "name": "Boston, MA: Logan International"
+    }, 
+    "statistics": {
+      "flights": {
+        "cancelled": 27, 
+        "on time": 740, 
+        "total": 904, 
+        "delayed": 137, 
+        "diverted": 0
+      }, 
+      "# of delays": {
+        "late aircraft": 55, 
+        "weather": 2, 
+        "security": 0, 
+        "national aviation system": 32, 
+        "carrier": 48
+      }, 
+      "minutes delayed": {
+        "late aircraft": 2738, 
+        "weather": 332, 
+        "carrier": 1894, 
+        "security": 0, 
+        "total": 6264, 
+        "national aviation system": 1300
+      }
+    }, 
+    "time": {
+      "label": "2016/1", 
+      "year": 2016, 
+      "month": 1
+    }, 
+    "carrier": {
+      "code": "WN", 
+      "name": "Southwest Airlines Co."
+    }
+  }
+]

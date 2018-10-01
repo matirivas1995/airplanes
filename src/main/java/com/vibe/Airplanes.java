@@ -6,6 +6,9 @@ import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
+import org.apache.thrift.TException;
+import org.apache.thrift.TSerializer;
+import org.apache.thrift.protocol.TSimpleJSONProtocol;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -166,9 +169,10 @@ public class Airplanes extends Configured implements Tool{
         ca.setCarrierCode(codeCarrier);
         ca.setCarrierName(nameCarrier);
         ca.setTs(new Timestamp(System.currentTimeMillis()).toString());
-        JSONObject obj = new JSONObject();
+        TSerializer serializer = new TSerializer(new TSimpleJSONProtocol.Factory());
+        /*JSONObject obj = new JSONObject();
 
-        /*obj.put("carrierCode", codeCarrier);
+        obj.put("carrierCode", codeCarrier);
         System.out.println(codeCarrier);
         obj.put("carrierName", nameCarrier);
         System.out.println(code);
@@ -182,7 +186,11 @@ public class Airplanes extends Configured implements Tool{
         }
 
         br = new BufferedWriter( new OutputStreamWriter( os, "UTF-8" ) );
-        br.write(ca.toString());
+        try {
+            br.write(serializer.toString(ca));
+        } catch (TException e) {
+            e.printStackTrace();
+        }
         br.close();
 
 
@@ -208,7 +216,11 @@ public class Airplanes extends Configured implements Tool{
         }
 
         br = new BufferedWriter( new OutputStreamWriter( os, "UTF-8" ) );
-        br.write(aero.toString());
+        try {
+            br.write(serializer.toString(aero));
+        } catch (TException e) {
+            e.printStackTrace();
+        }
         br.close();
 
 
@@ -236,7 +248,11 @@ public class Airplanes extends Configured implements Tool{
         }
 
         br = new BufferedWriter( new OutputStreamWriter( os, "UTF-8" ) );
-        br.write(aero.toString());
+        try {
+            br.write(serializer.toString(aeroca));
+        } catch (TException e) {
+            e.printStackTrace();
+        }
         br.close();
 
 
@@ -267,7 +283,11 @@ public class Airplanes extends Configured implements Tool{
         }
 
         br = new BufferedWriter( new OutputStreamWriter( os, "UTF-8" ) );
-        br.write(es.toString());
+        try {
+            br.write(serializer.toString(es));
+        } catch (TException e) {
+            e.printStackTrace();
+        }
         br.close();
 
 
@@ -294,7 +314,11 @@ public class Airplanes extends Configured implements Tool{
         }
 
         br = new BufferedWriter( new OutputStreamWriter( os, "UTF-8" ) );
-        br.write(escan.toString());
+        try {
+            br.write(serializer.toString(escan));
+        } catch (TException e) {
+            e.printStackTrace();
+        }
         br.close();
 
     }

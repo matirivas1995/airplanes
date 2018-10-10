@@ -77,9 +77,7 @@ public class Airplanes extends Configured implements Tool{
 
 
             if(!fs.exists( fileHdfs)) {
-              /*  if (os!= null){
-                    os.close();
-                }*/
+
                 boolean isCreated = fs.mkdirs(fileHdfs);
 
                 if (isCreated) {
@@ -91,6 +89,7 @@ public class Airplanes extends Configured implements Tool{
 
             }else{
                 //fs.open(fileHdfs);
+                System.out.println("Escribiendo: " + data);
                 escribirEnCarpeta(data,index++,year,fs);
                 //BufferedWriter br = new BufferedWriter( new OutputStreamWriter( os, "UTF-8" ) );
                 //br.write(obj.toJSONString());
@@ -178,7 +177,7 @@ public class Airplanes extends Configured implements Tool{
         System.out.println(code);
         obj.put("ts", new Timestamp(System.currentTimeMillis()).toString());*/
 
-        Path fileCodeCarrier =new Path(pathToHdfs + year + "/" + codeCarrier);
+        Path fileCodeCarrier =new Path(pathToHdfs + year + "/" + codeCarrier + System.currentTimeMillis());
         if (!fs.exists(fileCodeCarrier)){
             os = fs.create(fileCodeCarrier);
         }else{
@@ -208,7 +207,7 @@ public class Airplanes extends Configured implements Tool{
         System.out.println(name);
         obj.put("ts", new Timestamp(System.currentTimeMillis()).toString());*/
 
-        fileCodeCarrier =new Path(pathToHdfs + year + "/" + code);
+        fileCodeCarrier =new Path(pathToHdfs + year + "/" + code + System.currentTimeMillis());
         if (!fs.exists(fileCodeCarrier)){
             os = fs.create(fileCodeCarrier);
         }else{
@@ -231,7 +230,7 @@ public class Airplanes extends Configured implements Tool{
         aeropuerto_carrier aeroca = new aeropuerto_carrier();
         aeroca.setAeroCode(code);
         aeroca.setCarrierCode(codeCarrier);
-        aero.setTs(new Timestamp(System.currentTimeMillis()).toString());
+        aeroca.setTs(new Timestamp(System.currentTimeMillis()).toString());
         /*obj = new JSONObject();
         obj.put("aeroCode", code);
         System.out.println(code);
@@ -240,7 +239,7 @@ public class Airplanes extends Configured implements Tool{
         obj.put("ts", new Timestamp(System.currentTimeMillis()).toString());
         */
 
-        fileCodeCarrier =new Path(pathToHdfs + year + "/" + code + "_" +codeCarrier);
+        fileCodeCarrier =new Path(pathToHdfs + year + "/" + code + "_" +codeCarrier + System.currentTimeMillis());
         if (!fs.exists(fileCodeCarrier)){
             os = fs.create(fileCodeCarrier);
         }else{
@@ -275,7 +274,7 @@ public class Airplanes extends Configured implements Tool{
         obj.put("ts", new Timestamp(System.currentTimeMillis()).toString());
         */
 
-        fileCodeCarrier =new Path(pathToHdfs + year + "/estadistica_" + index);
+        fileCodeCarrier =new Path(pathToHdfs + year + "/estadistica_" + codeCarrier + "_" + index + "_"+ System.currentTimeMillis());
         if (!fs.exists(fileCodeCarrier)){
             os = fs.create(fileCodeCarrier);
         }else{
@@ -306,7 +305,7 @@ public class Airplanes extends Configured implements Tool{
         System.out.println(nameCarrier);
         obj.put("ts", new Timestamp(System.currentTimeMillis()).toString());*/
 
-        fileCodeCarrier =new Path(pathToHdfs + year + "/" + index + "_cancelado");
+        fileCodeCarrier =new Path(pathToHdfs + year + "/" + index + "_cancelado" + System.currentTimeMillis());
         if (!fs.exists(fileCodeCarrier)){
             os = fs.create(fileCodeCarrier);
         }else{
